@@ -1,10 +1,18 @@
 package com.maroti.springbootjdbc.entity;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.NamedQuery;
 import java.util.Date;
 import java.util.Objects;
 
+@Entity
+@NamedQuery(name="find_all_student", query = "select s from Student s")
 public class Student {
 
+    @Id
+    @GeneratedValue
     private Integer roll;
     private String name;
     private String addr;

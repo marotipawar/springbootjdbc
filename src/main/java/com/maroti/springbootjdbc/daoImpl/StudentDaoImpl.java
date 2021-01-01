@@ -6,15 +6,49 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
 import java.sql.Time;
 import java.sql.Timestamp;
 import java.util.List;
 
 @Repository
+@Transactional
 public class StudentDaoImpl implements StudentDao {
-
     @Autowired
+    EntityManager entityManager;
+
+    @Override
+    public List<Student> getStudentList() {
+        TypedQuery<Student> namedQuery =entityManager.createNamedQuery("find_all_student", Student.class);
+        return namedQuery.getResultList();
+    }
+
+    @Override
+    public Student getStudentById(Integer roll) {
+        return entityManager.find(Student.class, roll);
+    }
+
+    @Override
+    public void deleteStudent(Integer roll) {
+        Student student = getStudentById(roll);
+         entityManager.remove(student);
+
+    }
+
+    @Override
+    public void insertStudent(Student student) {
+        entityManager.merge(student);
+    }
+
+    @Override
+    public void updateStudent(Student student) {
+        entityManager.merge(student);
+    }
+
+    /*@Autowired
     private JdbcTemplate jdbcTemplate;
 
     @Override
@@ -43,5 +77,5 @@ public class StudentDaoImpl implements StudentDao {
     public void updateStudent(Student student) {
         jdbcTemplate.update("update student set name=?, addr=?, gender=?, dob=?, mobile=? where roll=?",
                 student.getName(), student.getAddr(), student.getGender(), new Timestamp(student.getDob().getTime()), student.getMobile(), student.getRoll());
-    }
+    }*/
 }

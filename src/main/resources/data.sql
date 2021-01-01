@@ -1,3 +1,4 @@
+/*
 create table student(
     roll int,
     name varchar(255),
@@ -6,6 +7,7 @@ create table student(
     mobile varchar(12),
     dob timestamp
 );
+*/
 
 INSERT INTO
     STUDENT(roll, name, addr, gender, mobile, dob)

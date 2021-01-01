@@ -25,11 +25,13 @@ public class SpringbootjdbcApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 		logger.info("All Student => {}", studentDao.getStudentList());
+
+
 		logger.info("Find Student by Roll -> {}", studentDao.getStudentById(10001));
-		logger.info("Delete Student Roll-> 10001 {}", studentDao.deleteStudent(10001));
-		Student student = new Student(1004, "Jyoti", "Pune", "9876543215", new Date(), "Female");
+		studentDao.deleteStudent(10001);
+		Student student = new Student(10004, "Jyoti", "Pune", "9876543215", new Date(), "Female");
 		studentDao.updateStudent(student);
-		Student student1 = new Student(1005, "Priyanka", "Mumbai", "9876543216",  new Date(), "Female");
+		Student student1 = new Student(10005, "Priyanka", "Mumbai", "9876543216",  new Date(), "Female");
 		studentDao.insertStudent(student1);
 
 	}
